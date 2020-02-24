@@ -35,7 +35,7 @@
   <div class="form-group">
     <label for="">Poder</label>
     <input
-      [(ngModel)]="heroe.estado"
+      [(ngModel)]="heroe.poder"
       type="text"
       name="poder"
       class="form-control"
@@ -44,10 +44,18 @@
   <div class="form-group">
     <label for="">Estado</label>
     <br />
-    <button *ngIf="heroe.estado" class="btn btn-outline-success w-50">
+    <button
+      *ngIf="heroe.estado"
+      (click)="heroe.estado = false"
+      class="btn btn-outline-success w-50"
+    >
       Vivo
     </button>
-    <button *ngIf="!heroe.estado" class="btn btn-outline-danger w-50">
+    <button
+      *ngIf="!heroe.estado"
+      (click)="heroe.estado = true"
+      class="btn btn-outline-danger w-50"
+    >
       Muerto
     </button>
   </div>

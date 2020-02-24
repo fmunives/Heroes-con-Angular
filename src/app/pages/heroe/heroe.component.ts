@@ -5,6 +5,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 
 import Swal from "sweetalert2";
 import { Observable } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-heroe",
@@ -13,9 +14,20 @@ import { Observable } from "rxjs";
 })
 export class HeroeComponent implements OnInit {
   heroe: HeroesModel = new HeroesModel();
-  constructor(private firebase: FirebaseService) {}
+  constructor(
+    private firebase: FirebaseService,
+    private routeLink: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const id = this.routeLink.snapshot.paramMap.get("id");
+    if (id !== "new") {
+      this.firebase.getHero(id).subscribe((resp: HeroesModel) => {
+        this.heroe = resp;
+        this.heroe.id = id;
+      });
+    }
+  }
 
   guardarInfo(form: NgForm) {
     if (form.invalid) {

@@ -31,7 +31,20 @@ export class FirebaseService {
   }
 
   getHeros() {
-    return this.http.get(`${this.url}/heros.json`);
+    return this.http.get(`${this.url}/heros.json`).pipe(map(this.newArray));
+  }
+
+  private newArray(HeroeObject: Object) {
+    const heroes: HeroesModel[] = [];
+    if (HeroeObject !== null) {
+      Object.keys(HeroeObject).forEach(key => {
+        const heroe: HeroesModel = HeroeObject[key];
+        heroe.id = key;
+        heroes.push(heroe);
+      });
+    }
+
+    return heroes;
   }
 
   getHero(id: string) {

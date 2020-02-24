@@ -12,17 +12,36 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+    <tr *ngFor="let heroe of heroes; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ heroe.nombre }}</td>
+      <td>{{ heroe.poder }}</td>
+      <td>
+        <span *ngIf="heroe.estado" class="badge badge-info">vivo</span>
+        <span *ngIf="!heroe.estado" class="badge badge-danger">muerto</span>
+      </td>
+      <td>
+        <button
+          [routerLink]="['/heroe', heroe.id]"
+          class="btn btn-outline-success mr-2"
+        >
+          Editar
+        </button>
+        <button
+          (click)="eliminarHeroe(heroe, i)"
+          class="btn btn-outline-danger"
+        >
+          Eliminar
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
 
-<div class="alert alert-info text-center mt-3">Cargando</div>
-<div class="alert alert-warning text-center mt-3">
+<div *ngIf="cargando" class="alert alert-info text-center mt-3">Cargando</div>
+<div
+  *ngIf="!cargando && heroes.lenght === 0"
+  class="alert alert-warning text-center mt-3"
+>
   No hay heroes que mostrar
 </div>

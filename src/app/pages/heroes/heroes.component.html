@@ -1,7 +1,10 @@
 .
 <h2>Lista de heroes</h2>
 <button routerLink="/heroe/new" class="btn btn-primary">Nuevo heroe</button>
-<table class="table mt-3 animated fadeIn slow">
+<table
+  *ngIf="!cargando && heroes.length > 0"
+  class="table mt-3 animated fadeIn slow"
+>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -40,7 +43,7 @@
 
 <div *ngIf="cargando" class="alert alert-info text-center mt-3">Cargando</div>
 <div
-  *ngIf="!cargando && heroes.lenght === 0"
+  *ngIf="!cargando && heroes.length === 0"
   class="alert alert-warning text-center mt-3"
 >
   No hay heroes que mostrar
